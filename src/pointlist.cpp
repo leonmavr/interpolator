@@ -20,18 +20,29 @@ Pointlist::Pointlist() {
 
 void Pointlist::insert(double x, double y) {
     /* Create a new node with (x,y) and link it as follows:
+     * Before:
+     *      curr->prev   <--+     +-----> curr 
+     *      +-----------+   |     |      +-----------+
+     *      |Node* next |---|-----+      |Node* next |---> 
+     *  <---|Node* prev |   +------------|Node* prev |
+     *      |double x, y|                |double x, y|
+     *      +-----------+                +-----------+
      *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
+     *  After:
+     *                       +---->newnode      <--+
+     *                       |     +-----------+   |
+     *                       |     |Node* next |---|--+
+     *                       |  +--|Node* prev |   |  |
+     *                       |  |  |double x, y|   |  |
+     *                       |  |  +-----------+   |  |
+     *                       |  |                  |  |
+     *                       |  |                  |  |
+     *      curr->prev       |  |                  |  +--> curr 
+     *      +-----------+    |  |                  |      +-----------+
+     *      |Node* next |----+  |                  |      |Node* next |---> 
+     *  <---|Node* prev |<------+                  +------|Node* prev |
+     *      |double x, y|                                 |double x, y|
+     *      +-----------+                                 +-----------+
      */
     Node* newnode = new Node;
     newnode->xy.first = x;
