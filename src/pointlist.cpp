@@ -83,7 +83,6 @@ void Pointlist::free() {
     if (len == 2) [[unlikely]] {
         auto curr = tail_->next;
         tail_->next = head_;
-        std::cout << "l2" << std::endl;
         head_->prev = tail_;
         delete curr;
         curr = nullptr;
@@ -94,6 +93,7 @@ void Pointlist::free() {
             delete curr->prev;
             curr->prev = nullptr;
         }
+        delete curr;
     }
     delete head_;
     delete tail_;
@@ -116,5 +116,3 @@ int Pointlist::length() {
             curr = curr->next, i++);
     return i; 
 }
-
-
