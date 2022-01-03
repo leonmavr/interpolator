@@ -29,7 +29,7 @@ void Pointlist::insert(double x, double y) {
      *      +-----------+                +-----------+
      *
      *  After:
-     *                       +---->newnode      <--+
+     *                       +---->new_node      <--+
      *                       |     +-----------+   |
      *                       |     |Node* next |---|--+
      *                       |  +--|Node* prev |   |  |
@@ -44,24 +44,24 @@ void Pointlist::insert(double x, double y) {
      *      |double x, y|                                 |double x, y|
      *      +-----------+                                 +-----------+
      */
-    Node* newnode = new Node;
-    newnode->xy.first = x;
-    newnode->xy.second = y;
+    Node* new_node = new Node;
+    new_node->xy.first = x;
+    new_node->xy.second = y;
     if (!init_) [[unlikely]] {
-        head_->prev = newnode;
-        tail_->next = newnode;
-        newnode->next = head_;
-        newnode->prev = tail_;
+        head_->prev = new_node;
+        tail_->next = new_node;
+        new_node->next = head_;
+        new_node->prev = tail_;
         init_ = true;
     } else [[likely]] {
         auto curr = tail_->next;
         for (;
                 (x > curr->xy.first) && (curr != head_);
                 curr = curr->next);
-        newnode->prev = curr->prev;
-        newnode->next = curr;
-        curr->prev->next = newnode;
-        curr->prev = newnode;
+        new_node->prev = curr->prev;
+        new_node->next = curr;
+        curr->prev->next = new_node;
+        curr->prev = new_node;
     }
 };
 
