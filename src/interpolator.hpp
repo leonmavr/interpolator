@@ -14,7 +14,6 @@ class Interpolator: public Pointlist
         ~Interpolator();
         double interpolate(double x);
     private:
-        std::map<std::string, double (Interpolator::*)()> map_str2fun_;
         const std::string type_; // interpolation type, e.g. linear
 
 };

@@ -1,25 +1,31 @@
 #include "interpolator.hpp"
 #include <map>
 #include <string>
-#include <functional> // function
+#include <functional> // std::function
 
 
-static double inline smoothstep(double t) { 
+//----------------------------------------------------------------
+// static functions
+static inline double Smoothstep(double t) { 
     // https://en.wikipedia.org/wiki/Smoothstep
     return std::min(std::max(0.0, 3*t*t - 2*t*t*t), 1.0);
 }
 
-std::map<std::string, std::function<double(double)>>  funcMap =
-    {
-        { "smoothstep", smoothstep}
-    };
+static inline double Linear(double t) {
+    return t;
+}
 
-static inline double interp_points(const Point& pl, const Point& pr, double t) {
-    // linear interpolation
-    return (1-t)*pl.second + t*pr.second;
+static inline double InterpPoints(const Point& pl,
+        const Point& pr,
+        std::function<double(double)> func,
+        double t) {
+    // general interpolation formula
+    return (1-func(t))*pl.second + func(t)*pr.second;
 }
 
 
+//----------------------------------------------------------------
+// class methods 
 Interpolator::~Interpolator() {
     free();
 }
@@ -34,8 +40,6 @@ double Interpolator::interpolate(double x) {
     auto xright = pright.first;
     // t for linear interpolation, e.g. linear; pl + t(pr - pl)
     auto t = (x - xleft) / (xright - xleft);
-    if (type_.compare("linear") != 0)
-        t = funcMap[type_](t);
     int len = length();
 
     if (len == 1) [[unlikely]]
@@ -44,6 +48,13 @@ double Interpolator::interpolate(double x) {
         return pleft.second;
     else if (t > 1.0) [[unlikely]]
         return pright.second;
-    else [[likely]]
-        return interp_points(pleft, pright, t);
+    else [[likely]] {
+        if (type_.compare("linear") == 0)
+            return InterpPoints(pleft, pright, &Linear, t);
+        else if (type_.compare("smoothstep") == 0)
+            return InterpPoints(pleft, pright, &Smoothstep, t);
+        else
+            return 0.0; // TODO: throw exception
+        }        
+        
 }
