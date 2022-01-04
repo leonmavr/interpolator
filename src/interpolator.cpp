@@ -4,7 +4,6 @@
 #include <functional> // function
 
 
-static double inline linear(double t) { return t; }
 static double inline smoothstep(double t) { 
     // https://en.wikipedia.org/wiki/Smoothstep
     return std::min(std::max(0.0, 3*t*t - 2*t*t*t), 1.0);
@@ -12,11 +11,10 @@ static double inline smoothstep(double t) {
 
 std::map<std::string, std::function<double(double)>>  funcMap =
     {
-        { "linear", linear},
         { "smoothstep", smoothstep}
     };
 
-static inline double lerp(const Point& pl, const Point& pr, double t) {
+static inline double interp_points(const Point& pl, const Point& pr, double t) {
     // linear interpolation
     return (1-t)*pl.second + t*pr.second;
 }
@@ -47,5 +45,5 @@ double Interpolator::interpolate(double x) {
     else if (t > 1.0) [[unlikely]]
         return pright.second;
     else [[likely]]
-        return lerp(pleft, pright, t);
+        return interp_points(pleft, pright, t);
 }
