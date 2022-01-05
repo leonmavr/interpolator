@@ -2,6 +2,7 @@
 #include <map>
 #include <string>
 #include <functional> // std::function
+#include <stdexcept>
 
 
 //----------------------------------------------------------------
@@ -53,8 +54,10 @@ double Interpolator::interpolate(double x) {
             return InterpPoints(pleft, pright, &Linear, t);
         else if (type_.compare("smoothstep") == 0)
             return InterpPoints(pleft, pright, &Smoothstep, t);
-        else
-            return 0.0; // TODO: throw exception
-        }        
-        
+        else {
+            throw std::invalid_argument(
+                    "Invalid interpolation type. Use linear or smoothstep");
+        }
+    }        
+
 }
