@@ -2,34 +2,12 @@
 #include <map>
 #include <string>
 #include <functional> // std::function
-#include <stdexcept>
 
 
-//----------------------------------------------------------------
-// static functions
-static inline double Smoothstep(double t) { 
-    // https://en.wikipedia.org/wiki/Smoothstep
-    return std::min(std::max(0.0, 3*t*t - 2*t*t*t), 1.0);
-}
-
-static inline double Linear(double t) {
-    return t;
-}
-
-static inline double InterpPoints(const Point& pl,
-        const Point& pr,
-        std::function<double(double)> func,
-        double t) {
-    // general interpolation formula
-    return (1-func(t))*pl.second + func(t)*pr.second;
-}
-
-
-//----------------------------------------------------------------
-// class methods 
 Interpolator::~Interpolator() {
     free();
 }
+
 
 double Interpolator::interpolate(double x) {
     // interpolate this given the values left (->prev) and right (->next)
@@ -55,15 +33,13 @@ double Interpolator::interpolate(double x) {
         return xy_first.second;
     else if (x < xy_last.first) [[unlikely]] // .first: x, .second: y
         return xy_last.second;
-    else [[likely]] {
-        if (type_.compare("linear") == 0)
-            return InterpPoints(pleft, pright, &Linear, t);
-        else if (type_.compare("smoothstep") == 0)
-            return InterpPoints(pleft, pright, &Smoothstep, t);
-        else {
-            throw std::invalid_argument(
-                    "Invalid interpolation type. Use linear or smoothstep");
-        }
-    }        
+    else [[likely]]
+        return interp_points_(pleft, pright, interp_functions_[type_], t);
+}
 
+
+void Interpolator::help() const{
+    std::cout << "The interpolation functions supported are:" << std::endl;;
+    for (const auto& kv: interp_functions_) 
+        std::cout << "\t * " << kv.first << std::endl;
 }
