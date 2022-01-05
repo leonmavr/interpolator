@@ -43,12 +43,18 @@ double Interpolator::interpolate(double x) {
     auto t = (x - xleft) / (xright - xleft);
     int len = length();
 
+    Point xy_first; 
+    Point xy_last; 
+    if (len > 1) {
+        xy_first = head_->prev->xy;
+        xy_last = tail_->next->xy;
+    }
     if (len == 1) [[unlikely]]
         return x;
-    else if (t < 0.0) [[unlikely]]
-        return pleft.second;
-    else if (t > 1.0) [[unlikely]]
-        return pright.second;
+    else if (x > xy_first.first) [[unlikely]] // .first: x, .second: y
+        return xy_first.second;
+    else if (x < xy_last.first) [[unlikely]] // .first: x, .second: y
+        return xy_last.second;
     else [[likely]] {
         if (type_.compare("linear") == 0)
             return InterpPoints(pleft, pright, &Linear, t);
