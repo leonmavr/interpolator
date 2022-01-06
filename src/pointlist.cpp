@@ -116,3 +116,15 @@ int Pointlist::length() {
             curr = curr->next, i++);
     return i; 
 }
+
+
+std::vector<Point> Pointlist::data(){
+    std::vector<Point> ret;
+    if (!empty()) [[likely]] {
+        for (auto curr = tail_->next; curr != head_; curr = curr->next)
+            ret.push_back(curr->xy);
+    } else [[unlikely]]
+        ; // TODO: exception
+
+    return ret;
+}

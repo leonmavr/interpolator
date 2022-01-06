@@ -5,6 +5,7 @@
 #include <utility> // std::pair
 #include <memory> // std::make_shared
 #include <iostream>
+#include <vector>
 
 
 class Pointlist
@@ -17,6 +18,7 @@ class Pointlist
         void print();
         inline bool empty() { return tail_->next == head_; };
         int length();
+        std::vector<Point> data();
     protected:
         Node* head_;
         Node* tail_;
