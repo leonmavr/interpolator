@@ -13,12 +13,12 @@ class Pointlist
     public:
         Pointlist();
         void insert(double x, double y);
-        std::shared_ptr<Node> query(double x);
+        std::shared_ptr<Node> query(double x) const;
         void free();
         void print();
-        inline bool empty() { return tail_->next == head_; };
-        int length();
-        std::vector<Point> data();
+        inline bool empty() const { return tail_->next == head_; };
+        int length() const;
+        std::vector<Point> data() const;
     protected:
         Node* head_;
         Node* tail_;

@@ -27,13 +27,10 @@ class Interpolator: public Pointlist
         inline double interp_points_(const Point& pl,
             const Point& pr,
             std::function<double(double)> func,
-            double t) {
+            double t){
                 // general interpolation formula
                 return (1-func(t))*pl.second + func(t)*pr.second;
         }
-
-
-
 };
 
 #endif /* INTERPOLATOR_HPP */

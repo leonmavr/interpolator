@@ -65,7 +65,7 @@ void Pointlist::insert(double x, double y) {
     }
 };
 
-std::shared_ptr<Node> Pointlist::query(double x) {
+std::shared_ptr<Node> Pointlist::query(double x) const {
     auto curr = tail_->next;
     for (;
             (x > curr->xy.first) && (curr->next != nullptr);
@@ -109,7 +109,7 @@ void Pointlist::print() {
 }
 
 
-int Pointlist::length() {
+int Pointlist::length() const{
     int i = 0;
     for (auto curr = tail_->next;
             (curr != head_);
@@ -118,7 +118,7 @@ int Pointlist::length() {
 }
 
 
-std::vector<Point> Pointlist::data(){
+std::vector<Point> Pointlist::data() const{
     std::vector<Point> ret;
     if (!empty()) [[likely]] {
         for (auto curr = tail_->next; curr != head_; curr = curr->next)
