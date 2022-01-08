@@ -63,6 +63,7 @@ void Pointlist::insert(double x, double y) {
         curr->prev->next = new_node;
         curr->prev = new_node;
     }
+    size_++;
 };
 
 std::shared_ptr<Node> Pointlist::query(double x) const {
@@ -79,8 +80,7 @@ std::shared_ptr<Node> Pointlist::query(double x) const {
 
 
 void Pointlist::free() {
-    int len = length();
-    if (len == 2) [[unlikely]] {
+    if (size() == 2) [[unlikely]] {
         auto curr = tail_->next;
         tail_->next = head_;
         head_->prev = tail_;
@@ -99,6 +99,7 @@ void Pointlist::free() {
     delete tail_;
 };
 
+
 void Pointlist::print() {
     auto curr = tail_->next;
     while (curr->next != nullptr) {
@@ -106,15 +107,6 @@ void Pointlist::print() {
         curr = curr->next;
     }
     std::cout << std::endl;
-}
-
-
-int Pointlist::length() const{
-    int i = 0;
-    for (auto curr = tail_->next;
-            (curr != head_);
-            curr = curr->next, i++);
-    return i; 
 }
 
 

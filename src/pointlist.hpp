@@ -17,13 +17,14 @@ class Pointlist
         void free();
         void print();
         inline bool empty() const { return tail_->next == head_; };
-        int length() const;
+        int size() const { return size_; }
         std::vector<Point> data() const;
     protected:
         Node* head_;
         Node* tail_;
     private:
         bool init_ = false;
+        int size_ = 0;
 };
 
 

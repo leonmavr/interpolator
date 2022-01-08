@@ -19,15 +19,14 @@ double Interpolator::interpolate(double x) {
     auto xright = pright.first;
     // t for linear interpolation, e.g. linear; pl + t(pr - pl)
     auto t = (x - xleft) / (xright - xleft);
-    int len = length();
 
     Point xy_first; 
     Point xy_last; 
-    if (len > 1) {
+    if (size() > 1) {
         xy_first = head_->prev->xy;
         xy_last = tail_->next->xy;
     }
-    if (len == 1) [[unlikely]]
+    if (size() == 1) [[unlikely]]
         return x;
     else if (x > xy_first.first) [[unlikely]] // .first: x, .second: y
         return xy_first.second;
