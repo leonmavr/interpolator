@@ -23,7 +23,6 @@ class Pointlist
         Node* head_;
         Node* tail_;
     private:
-        bool init_ = false;
         int size_ = 0;
 };
 

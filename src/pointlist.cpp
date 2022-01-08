@@ -13,7 +13,7 @@ Pointlist::Pointlist() {
     tail_ = new Node;
     tail_->next = new Node;
     tail_->prev = nullptr;
-    // init_ialise head_ and tail_
+    // initialise head_ and tail_
     head_->prev= tail_;
     tail_->next = head_;
 }
@@ -47,12 +47,11 @@ void Pointlist::insert(double x, double y) {
     Node* new_node = new Node;
     new_node->xy.first = x;
     new_node->xy.second = y;
-    if (!init_) [[unlikely]] {
+    if (size_ == 0) [[unlikely]] {
         head_->prev = new_node;
         tail_->next = new_node;
         new_node->next = head_;
         new_node->prev = tail_;
-        init_ = true;
     } else [[likely]] {
         auto curr = tail_->next;
         for (;
