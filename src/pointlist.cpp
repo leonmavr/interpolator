@@ -28,8 +28,8 @@ void Pointlist::insert(double x, double y) {
      *      |double x, y|                |double x, y|
      *      +-----------+                +-----------+
      *
-     *  After:
-     *                       +---->new_node      <--+
+     * After:
+     *                       +---->new_node     <--+
      *                       |     +-----------+   |
      *                       |     |Node* next |---|--+
      *                       |  +--|Node* prev |   |  |
@@ -79,7 +79,7 @@ std::shared_ptr<Node> Pointlist::query(double x) const {
 
 
 void Pointlist::free() {
-    if (size() == 2) [[unlikely]] {
+    if (size_ == 1) [[unlikely]] {
         auto curr = tail_->next;
         tail_->next = head_;
         head_->prev = tail_;
