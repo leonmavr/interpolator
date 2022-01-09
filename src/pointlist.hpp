@@ -19,6 +19,66 @@ class Pointlist
         inline bool empty() const { return tail_->next == head_; };
         int size() const { return size_; }
         std::vector<Point> data() const;
+        class iterator
+        {
+            public:
+                // for iterator
+                typedef iterator self_type;
+                typedef Node value_type;
+                typedef Node& reference;
+                typedef Node* pointer;
+                typedef std::forward_iterator_tag iterator_category;
+                typedef int difference_type;
+                iterator(pointer ptr) : ptr_(ptr) { } 
+                self_type operator++() {
+                    self_type i = *this; ptr_ = ptr_->next; return i;
+                }
+                self_type operator++(int junk) { ptr_++; return *this; }
+                reference operator*() { return *ptr_; }
+                pointer operator->() { return ptr_; }
+                bool operator==(const self_type& rhs) { return ptr_ == rhs.ptr_; }
+                bool operator!=(const self_type& rhs) { return ptr_ != rhs.ptr_; }
+            private:
+                pointer ptr_;
+        };
+
+        class const_iterator
+        {
+            public:
+                typedef const_iterator self_type;
+                typedef Node value_type;
+                typedef Node& reference;
+                typedef Node* pointer;
+                typedef int difference_type;
+                typedef std::forward_iterator_tag iterator_category;
+                const_iterator(pointer ptr) : ptr_(ptr) { }
+                self_type operator++() { self_type i = *this; ptr_ = ptr_->next; return i; }
+                self_type operator++(int junk) { ptr_ = ptr_->next; return *this; }
+                const reference operator*() { return *ptr_; }
+                const pointer operator->() { return ptr_; }
+                bool operator==(const self_type& rhs) { return ptr_ == rhs.ptr_; }
+                bool operator!=(const self_type& rhs) { return ptr_ != rhs.ptr_; }
+            private:
+                pointer ptr_;
+        };
+
+        iterator begin() {
+            return iterator(tail_->next);
+        }
+
+        iterator end() {
+            return iterator(head_);
+        }
+
+        const_iterator begin() const {
+            return const_iterator(tail_->next);
+        }
+
+        const_iterator end() const {
+            return const_iterator(head_);
+        }
+
+
     protected:
         Node* head_;
         Node* tail_;

@@ -21,15 +21,15 @@ class Interpolator: public Pointlist
         // https://en.wikipedia.org/wiki/Smoothstep
         std::map< std::string, std::function<double(double)> > interp_functions_ {
             {"linear",      [](double x){ return x; }},
-                {"smoothstep",  [](double x){
-                                                return std::min(std::max(0.0, 3*x*x - 2*x*x*x), 1.0);}}
+            {"smoothstep",  [](double x){
+                return std::min(std::max(0.0, 3*x*x - 2*x*x*x), 1.0);}}
         };
         inline double interp_points_(const Point& pl,
-            const Point& pr,
-            std::function<double(double)> func,
-            double t){
-                // general interpolation formula
-                return (1-func(t))*pl.second + func(t)*pr.second;
+                const Point& pr,
+                std::function<double(double)> func,
+                double t){
+            // general interpolation formula
+            return (1-func(t))*pl.second + func(t)*pr.second;
         }
 };
 
