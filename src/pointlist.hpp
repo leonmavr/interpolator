@@ -18,7 +18,6 @@ class Pointlist
         void print();
         inline bool empty() const { return tail_->next == head_; };
         int size() const { return size_; }
-        std::vector<Point> data() const;
         class iterator
         {
             public:
