@@ -8,16 +8,16 @@
 #include <vector>
 
 
-class iterator {
+class Iterator {
 	public:
-		typedef iterator self_type;
+		typedef Iterator self_type;
 		typedef Node value_type;
 		typedef Node& reference;
 		typedef Node* pointer;
 		typedef std::forward_iterator_tag iterator_category;
 		typedef int difference_type;
 
-		iterator(pointer ptr) : ptr_(ptr) { } 
+		Iterator(pointer ptr) : ptr_(ptr) { } 
 		self_type operator++() {
 			self_type i = *this; ptr_ = ptr_->next; return i;
 		}
@@ -32,16 +32,16 @@ class iterator {
 };
 
 
-class const_iterator {
+class Const_iterator {
 	public:
-		typedef const_iterator self_type;
+		typedef Const_iterator self_type;
 		typedef Node value_type;
 		typedef Node& reference;
 		typedef Node* pointer;
 
 		typedef int difference_type;
 		typedef std::forward_iterator_tag iterator_category;
-		const_iterator(pointer ptr) : ptr_(ptr) { }
+		Const_iterator(pointer ptr) : ptr_(ptr) { }
 		self_type operator++() { self_type i = *this; ptr_ = ptr_->next; return i; }
 		self_type operator++(int junk) { ptr_ = ptr_->next; return *this; }
 		const reference operator*() { return *ptr_; }
@@ -63,19 +63,19 @@ class Pointlist {
 		void free();
 		inline bool empty() const { return tail_->next == head_; };
 		int size() const { return size_; }
-		// iterator functionality - see iterator, const_iterator classes above
-		iterator begin() { return iterator(tail_->next); }
-		iterator end() { return iterator(head_); }
-		const_iterator begin() const { return const_iterator(tail_->next); }
-		const_iterator end() const { return const_iterator(head_); }
+		// iterator functionality - see iterator, Const_iterator classes above
+		Iterator begin() { return Iterator(tail_->next); }
+		Iterator end() { return Iterator(head_); }
+		Const_iterator begin() const { return Const_iterator(tail_->next); }
+		Const_iterator end() const { return Const_iterator(head_); }
 
 	protected:
 		Node* head_;
 		Node* tail_;
 
 	private:
-		friend class iterator;
-		friend class const_iterator;
+		friend class Iterator;
+		friend class Const_iterator;
 		int size_ = 0;
 };
 
