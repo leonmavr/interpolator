@@ -27,7 +27,6 @@ class iterator {
 		bool operator!=(const self_type& rhs) { return ptr_ != rhs.ptr_; }
 
 	private:
-		friend class Pointlist;
 		pointer ptr_;
 };
 
@@ -50,7 +49,6 @@ class const_iterator {
 		bool operator!=(const self_type& rhs) { return ptr_ != rhs.ptr_; }
 
 	private:
-		friend class Pointlist;
 		pointer ptr_;
 };
 
