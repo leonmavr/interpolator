@@ -32,7 +32,7 @@ class Pointlist
                 self_type operator++() {
                     self_type i = *this; ptr_ = ptr_->next; return i;
                 }
-                self_type operator++(int junk) { ptr_++; return *this; }
+                self_type operator++(int junk) { ptr_ = ptr_->next; return *this; }
                 reference operator*() { return *ptr_; }
                 pointer operator->() { return ptr_; }
                 bool operator==(const self_type& rhs) { return ptr_ == rhs.ptr_; }
@@ -76,7 +76,6 @@ class Pointlist
         const_iterator end() const {
             return const_iterator(head_);
         }
-
 
     protected:
         Node* head_;
