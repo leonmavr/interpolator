@@ -98,13 +98,3 @@ void Pointlist::free() {
     delete head_;
     delete tail_;
 };
-
-
-void Pointlist::print() {
-    auto curr = tail_->next;
-    while (curr->next != nullptr) {
-        std::cout << "(" << curr->xy.first << ", " << curr->xy.second << ")" << ", ";
-        curr = curr->next;
-    }
-    std::cout << std::endl;
-}

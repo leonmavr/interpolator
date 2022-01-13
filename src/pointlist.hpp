@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 
+
 class iterator {
 	public:
 		typedef iterator self_type;
@@ -60,7 +61,6 @@ class Pointlist {
 		void insert(double x, double y);
 		std::shared_ptr<Node> query(double x) const;
 		void free();
-		void print();
 		inline bool empty() const { return tail_->next == head_; };
 		int size() const { return size_; }
 		// iterator functionality - see iterator, const_iterator classes above
