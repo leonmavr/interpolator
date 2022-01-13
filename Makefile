@@ -3,11 +3,11 @@
 ###################################################
 CC = g++
 
-EXEC = chip8
+EXEC = main 
 SRC_DIR = src
 INCL_DIR = src 
 CFLAGS = -std=c++17 -g -I$(INCL_DIR) -Wall
-LDFLAGS = -lSDL2
+LDFLAGS = 
 SOURCES = $(SRC_DIR)/interpolator.cpp $(SRC_DIR)/pointlist.cpp $(SRC_DIR)/main.cpp
 OBJECTS = $(SOURCES:%.cpp=%.o)
 RM = rm -rf
