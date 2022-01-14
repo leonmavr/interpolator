@@ -74,7 +74,7 @@ class Pointlist {
 		Node* tail_;
 
 	private:
-		friend class Iterator;
+		friend class Iterator; // has access to all (incl. private) members
 		friend class Const_iterator;
 		int size_ = 0;
 };
