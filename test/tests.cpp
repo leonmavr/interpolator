@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
-#include "../src/interpolator.hpp"
-#include "../src/pointlist.hpp"
+#include "interpolator.hpp"
+#include "pointlist.hpp"
 
 #include <fstream>
 #include <string>
