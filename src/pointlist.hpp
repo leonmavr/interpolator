@@ -55,13 +55,30 @@ class Const_iterator {
 
 
 
+/**
+ * @brief Stores and processes list of points (x, y) in ascending order
+ */
 class Pointlist {
 	public:
 		Pointlist();
 		void insert(double x, double y);
+		/**
+		 * @brief Finds the first stored node with x smaller than the x in the query
+		 *
+		 * @param x A double
+		 *
+		 * @return A Node pointer whose ``prev'' member points to the first node
+		 * with x smaller than the x in the query and its ``next'' member points
+		 * to the first node with x larger than the x in the query.
+		 */
 		std::shared_ptr<Node> query(double x) const;
+		/**
+		 * @brief Delete all nodes from the list
+		 */
 		void free();
+		// check whether points have been added - true if none added
 		inline bool empty() const { return tail_->next == head_; };
+		// get the length of the Pointlist object
 		int size() const { return size_; }
 		// iterator functionality - see iterator, Const_iterator classes above
 		Iterator begin() { return Iterator(tail_->next); }

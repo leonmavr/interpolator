@@ -13,7 +13,16 @@ class Interpolator: public Pointlist
         Interpolator(): type_("linear") { }
         Interpolator(std::string type): type_(type) { }
         ~Interpolator();
+		/**
+		 * @brief Interpolates at x given its left-most and right-most neighbours
+		 * stored in the list
+		 *
+		 * @param x The x coordinate of the point to interpolate
+		 *
+		 * @return The interpolated y at value x
+		 */
         double interpolate(double x);
+		/* get usage info - e.g. which interpolation types are supported */
         void help() const;
     private:
         const std::string type_; // interpolation type, e.g. linear
