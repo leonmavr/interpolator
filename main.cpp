@@ -1,38 +1,39 @@
 #include <iostream>
-#include <memory>
+#include <fstream>
+#include <memory> // make_unique
+#include <utility> // make_pair
 #include "pointlist.hpp"
 #include "interpolator.hpp"
 
 
-int main()
-{
-    auto lerp = std::make_unique<Interpolator>("smoothstep");
-    lerp->insert(100, 10);
-    lerp->insert(42, 4.2);
-#if 1
-    lerp->insert(69, 6.9);
-    lerp->insert(1000, 100);
-    lerp->insert(420, 42.0);
-    lerp->insert(10001, 1002);
-    lerp->insert(10000, 1001);
-#endif
-    std::cout << lerp->interpolate(40) << std::endl;
-    std::cout << lerp->interpolate(76) << std::endl;
-    std::cout << lerp->interpolate(-100000) << std::endl;
-    std::cout << lerp->interpolate(100000) << std::endl;
-    //std::cout << lerp->begin()->next->xy.first;
-    std::cout << "\n----" << std::endl;
-    for (const auto& it: *lerp)
-        std::cout << it.xy.first << ", ";
-    std::cout << "\n----" << std::endl;
+int main() {
 
-    auto pl = std::make_unique<Pointlist>();
-    pl->insert(5, 0);
-    pl->insert(3, 0);
-    pl->insert(10, 0);
-    pl->insert(0, 0);
-    for (const auto& it: *pl)
-        std::cout << it.xy.first << ", ";
+	// write results to file to visualise them later
+	// it shall contain:
+	// anchor points as (x, y), newline, interpolated points (x, y)
+	std::ofstream file_out;
+	file_out.open("out.txt");
 
+    auto interp = std::make_unique<Interpolator>("smoothstep");
+	std::vector<std::pair<double, double>> anchors;
+	anchors.push_back(std::make_pair(12.0, 16.0));
+	anchors.push_back(std::make_pair(-1.0, -10.0));
+	anchors.push_back(std::make_pair(1.0, -5.0));
+	anchors.push_back(std::make_pair(18.0, 2.0));
+	anchors.push_back(std::make_pair(10, 10.0));
+	anchors.push_back(std::make_pair(20.0, 1.5));
+	anchors.push_back(std::make_pair(5.5, 8.0));
 
+	for (const auto& a: anchors)
+		interp->insert(a.first, a.second);
+
+	for (const auto& pt: anchors)
+		file_out << pt.first << ", " << pt.second << std::endl;
+	file_out << std::endl;
+	
+	double dx = 0.01;
+	for (double x = -1.0; x < 20.0; x += dx)
+		file_out << x << ", " << interp->interpolate(x) << std::endl;
+
+	file_out.close();
 }
