@@ -18,20 +18,25 @@ static inline bool near_zero(double a, double b, double eps) {
 
 
 TEST_CASE("Pointlist cases") {
+	auto pointlist = std::make_unique<Pointlist>();
+	pointlist->insert(-1.0, 5.0);
+	pointlist->insert(42.0, -5.0);
+	pointlist->insert(50.1, 9.0);
+	pointlist->insert(34.0, 7.0);
+	pointlist->insert(-100.0, 50.0);
 
-    SECTION("x's sorted", "[test1]") {
-        auto pointlist = std::make_unique<Pointlist>();
-        std::vector<std::pair<double, double>> pts_input;
-        pts_input.push_back(std::make_pair(-1.0, 5.0));
-        pts_input.push_back(std::make_pair(42.0, 10.0));
-        pts_input.push_back(std::make_pair(50.0, 9.0));
-        pts_input.push_back(std::make_pair(43.0, 7.0));
-        pts_input.push_back(std::make_pair(-100.0, -20.1));
-        std::vector<std::pair<double, double>> pts_output;
-        std::vector<double> pts_input_x;
-        bool equal = true;
-        // TODO: assert the points of Pointlist are sorted
-        REQUIRE(equal);
+    SECTION("Iteration test", "[test1]") {
+		int len = 0;
+		for (const auto& it: *pointlist)
+			len++;
+		REQUIRE(len == 5);
+	}
+
+    SECTION("x's sorted", "[test2]") {
+        std::vector<double> pts_x;
+		for (const auto& it: *pointlist)
+			pts_x.push_back(it.xy.first);
+        REQUIRE(std::is_sorted(pts_x.begin(), pts_x.end()));
     }
 }
 
@@ -42,14 +47,15 @@ TEST_CASE("Linear interpolator cases") {
     interpolator->insert(1, 1);
     interpolator->insert(2, 1.5);
     interpolator->insert(3, 1.5);
+
     SECTION("Average cases", "[test1]") {
             REQUIRE(near_zero(interpolator->interpolate(0.0), 0.0, eps));
             REQUIRE(near_zero(interpolator->interpolate(-0.99), -0.99, eps));
             REQUIRE(near_zero(interpolator->interpolate(1.25), 1.125, eps));
     }
     SECTION("Corner cases", "[test2]") {
-            REQUIRE(near_zero(interpolator->interpolate(-1.01), -1, eps));
-            REQUIRE(near_zero(interpolator->interpolate(-1.2), -1, eps));
+            REQUIRE(near_zero(interpolator->interpolate(-1.01), -1.0, eps));
+            REQUIRE(near_zero(interpolator->interpolate(-1.2), -1.0, eps));
             REQUIRE(near_zero(interpolator->interpolate(3000), 1.5, eps));
     }
 }
