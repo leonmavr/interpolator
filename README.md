@@ -9,7 +9,7 @@ double interpolate(double x);
 ```
 Both run in linear time.  
 
-It currently implements followig two interpolation types:
+It currently implements the following two interpolation types:
 * Linear
 * Smoothstep
 
