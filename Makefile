@@ -5,10 +5,10 @@ CC = g++
 
 EXEC = main 
 SRC_DIR = src
-INCL_DIR = src 
+INCL_DIR = include 
 CFLAGS = -std=c++17 -g -I$(INCL_DIR) -Wall
 LDFLAGS = 
-SOURCES = $(SRC_DIR)/interpolator.cpp $(SRC_DIR)/pointlist.cpp $(SRC_DIR)/main.cpp
+SOURCES = $(SRC_DIR)/interpolator.cpp $(SRC_DIR)/pointlist.cpp main.cpp
 OBJECTS = $(SOURCES:%.cpp=%.o)
 RM = rm -rf
 
