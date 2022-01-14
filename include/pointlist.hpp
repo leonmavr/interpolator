@@ -61,6 +61,7 @@ class Const_iterator {
 class Pointlist {
 	public:
 		Pointlist();
+		~Pointlist() { free(); }
 		void insert(double x, double y);
 		/**
 		 * @brief Finds the first stored node with x smaller than the x in the query

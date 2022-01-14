@@ -80,13 +80,13 @@ std::shared_ptr<Node> Pointlist::query(double x) const {
 
 
 void Pointlist::free() {
-    if (size_ == 0) [[unlikely]] {
+    if (size_ == 1) [[unlikely]] {
         auto curr = tail_->next;
         tail_->next = head_;
         head_->prev = tail_;
         delete curr;
         curr = nullptr;
-    } else [[likely]] {
+    } else if (size_ > 1) [[likely]] {
         auto curr = tail_->next;
         while (curr->next != head_) {
             curr = curr->next;
