@@ -4,11 +4,6 @@
 #include <functional> // std::function
 
 
-Interpolator::~Interpolator() {
-    free();
-}
-
-
 double Interpolator::interpolate(double x) {
     // interpolate this given the values left (->prev) and right (->next)
     // this node has no data - only ->prev, ->next do (see query den'n)

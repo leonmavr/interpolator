@@ -12,7 +12,6 @@ class Interpolator: public Pointlist
     public:
         Interpolator(): type_("linear") { }
         Interpolator(std::string type): type_(type) { }
-        ~Interpolator();
 		/**
 		 * @brief Interpolates at x given its left-most and right-most neighbours
 		 * stored in the list
