@@ -24,11 +24,10 @@ int main() {
 	anchors.push_back(std::make_pair(20.0, 1.5));
 	anchors.push_back(std::make_pair(5.5, 8.0));
 
-	for (const auto& a: anchors)
+	for (const auto& a: anchors) {
 		interp->insert(a.first, a.second);
-
-	for (const auto& pt: anchors)
-		file_out << pt.first << ", " << pt.second << std::endl;
+		file_out << a.first << ", " << a.second << std::endl;
+	}
 	file_out << std::endl;
 	
 	double dx = 0.01;
