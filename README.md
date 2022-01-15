@@ -24,7 +24,7 @@ cd interpolator
 make
 ./main
 ```
-`main` by default outputs the interpolation results in a file called `out.txt`. You can plot them by running the `scripts/plot.py` script.  
+`main` by default outputs the interpolation results in a file called `out.txt`. You can plot them by running the `scripts/plot.py` script. The script needs the `matplotlib` package so make sure that's installed. 
 
 To build and run the unit tests execute:
 ```
