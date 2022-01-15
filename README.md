@@ -7,9 +7,7 @@ Numerical 1D interpolation in C++ via linked lists. It supports the following tw
 void insert(double x, double y);
 double interpolate(double x);
 ```
-Both run in linear time.  
-
-It currently implements the following two interpolation types:
+Both operations run in linear time. It currently implements the following two interpolation types:
 * Linear
 * Smoothstep
 
@@ -20,7 +18,7 @@ It currently implements the following two interpolation types:
 
 ### Compilation and execution instructions
 
-The project is built by a `Makefile` and unit tests are compiled with the Catch2 library. To compile it run:
+To compile it, you only need a version of the g++ compiler that supports the C++17 and newer standards. No dependencies are needed. The project is built by a `Makefile` and unit tests are compiled with the Catch2 library. To compile it run:
 ```
 make
 ```
