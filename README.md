@@ -18,9 +18,11 @@ Both operations run in linear time. It currently implements the following two in
 
 ### Compilation and execution instructions
 
-To compile it, you only need a version of the g++ compiler that supports the C++17 and newer standards. No dependencies are needed. The project is built by a `Makefile` and unit tests are compiled with the Catch2 library. To compile it run:
+To compile it, you only need a version of the g++ compiler that supports the C++17 and newer standards. No dependencies are needed. The project is built by a `Makefile` and unit tests are compiled with the Catch2 library. To compile it and run the driver code execute:
 ```
+cd interpolator
 make
+./main
 ```
 To build and run the unit tests execute:
 ```
