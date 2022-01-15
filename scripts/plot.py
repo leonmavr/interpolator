@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 from matplotlib import pyplot as plt
+import os
+this_script_path = os.path.abspath(__file__)
+this_script_folder = os.path.dirname(this_script_path)
 
 """
 This quick script reads the output dumped by main.cpp and plots it.
@@ -16,7 +19,7 @@ x, y
 x, y
 ...
 """
-with open('../out.txt') as f:
+with open(os.path.join(this_script_folder, '..', 'out.txt')) as f:
     lines = f.readlines()
 
 xy_anch = []
@@ -36,5 +39,5 @@ plt.plot([xy[0] for xy in xy_interp], [xy[1] for xy in xy_interp], 'r-')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.grid(True)
-#plt.title('Original points')
-plt.savefig('result.jpg')
+plot_file = os.path.join(this_script_folder, 'result.jpg')
+plt.savefig(plot_file)
