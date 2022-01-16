@@ -38,3 +38,7 @@ To clean everything:
 ```
 make clean
 ```
+
+### Integration
+
+Currently this is a header-only package. To integrate this interpolator in your project, simply copy the headers (`include/*.hpp`) in your headers directory and the sources (`src/*.cpp`) in your source directory.
